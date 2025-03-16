@@ -11,4 +11,28 @@ def generate_ticks(num_ticks=1000):
 
 # Order book processor
 class OrderBook:
-    def
+    def __init__(self):
+        self.bids = []
+        self.asks = []
+
+    def update(self, tick):
+        #updates the order book with incoming tick data
+        side, price, volume = tick
+        if side =='bid':
+            self.bids.append((price, volume))
+            self.bids.sort(reverse=True, key=lambda x: x[0])    #Sort bids descending
+        else:
+            self.aks.append((price, volume))
+            self.asks.sort(reverse=True, key=lambda x: x[0])    #Sorts asks descending
+
+    def best_bid_ask(self):
+        #Returns the top bid and ask prices
+        best_bid = self.bids[0] if self.bids else None  #Checks if there are any bids
+        best_ask = self.asks[0] if self.asks else None  #Checks if there are any asks
+        return best_bid, best_ask
+
+#Function to process ticks
+def process_ticks(order_book, tick_queue):
+    while not tick_queue.empty():
+        tick = tick_queue.get()
+        order_book.update(tick)
