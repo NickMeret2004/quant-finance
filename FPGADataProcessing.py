@@ -36,3 +36,12 @@ def process_ticks(order_book, tick_queue):
     while not tick_queue.empty():
         tick = tick_queue.get()
         order_book.update(tick)
+
+# Simulate FPGA parallel processing using multiprocessing
+def run_simulation():
+    tick_data = generate_ticks(1000)
+    order_book = OrderBook()
+
+    tick_queue = mp.Queue()
+    for tick in tick_data:
+        tick_queue.put(tick)
