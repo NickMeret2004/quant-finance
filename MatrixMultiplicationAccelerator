@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+#define SIZE 3  // Change for larger matrices
+
+void multiply_matrices(int A[SIZE][SIZE], int B[SIZE][SIZE], int C[SIZE][SIZE]){
+    for (int row = 0; row < SIZE; row++){             // Loops through rows of A
+        for (int col=0; col < SIZE; col++){           // Loops through columns of B
+            C[row][col] = 0;                        // Initialize the result call
+            for (int i = 0; i < SIZE; i++){     // Multiply and accumulate
+                C[row][col] += A[row][i] * B[i][col];
+            }
+        }
+    }
+}
+
+void print_matrix(int matrix[SIZE][SIZE]){
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+
+int main()  {
+
+    int A[SIZE][SIZE] = {{1,2,3}, {4,5,6}, {7,8,9}};
+    int B[SIZE][SIZE] = {{1,2,3}, {4,5,6}, {7,8,9}};
+    int C[SIZE][SIZE];
+
+    multiply_matrices(A,B,C);
+
+    printf(" Result Matrix:\n");
+    print_matrix(C);
+
+    return 0;
+}
